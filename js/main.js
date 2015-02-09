@@ -7,14 +7,10 @@ window.onload = function()
     // You will need to change the fourth parameter to "new Phaser.Game()" from
     // 'phaser-example' to 'game', which is the id of the HTML element where we
     // want the game to go.
-    // The assets (and code) can be found at: https://github.com/photonstorm/phaser/tree/master/examples/assets
-    // You will need to change the paths you pass to "game.load.image()" or any other
-    // loading functions to reflect where you are putting the assets.
-    // All loading functions will typically all be found inside "preload()".
     
     "use strict";
     
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
+    var game = new Phaser.Game(800, 576, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
     
     var girl;
     var brick;
@@ -22,7 +18,6 @@ window.onload = function()
     var reunited;
     var map;
     var map2;
-//    var map3;
     var tiles;
     var background;
     var platforms;
@@ -30,11 +25,10 @@ window.onload = function()
     
     function preload() 
     {
-        game.load.spritesheet('girlChar', 'assets/ExGirl.png', 40, 40, 12 );
-        game.load.image('plainBrick', 'assets/brickPlatform.png');
+        game.load.spritesheet('blkCat', 'assets/blkCatJump.png', 32, 32, 15 );
+        game.load.image('grass', 'assets/grass.png');
         game.load.image('foggySky', 'assets/foggyBackground.png');
-        game.load.image('brick', 'assets/Brick.png');
-        game.load.tilemap('map', 'assets/iKnowYou.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.tilemap('map', 'assets/vDayBG.json', null, Phaser.Tilemap.TILED_JSON);
         
         game.load.audio('reunited', 'assets/Reunited1.mp3');
     }
@@ -42,16 +36,12 @@ window.onload = function()
     
     function create() 
     {
-        game.world.setBounds(0, 0, 3200, 1824);
+        game.world.setBounds(0, 0, 800, 576);
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
         //setting up the images used in the tilemap
         map = game.add.tilemap('map');
-        map2 = game.add.tilemap('map');
-    //    map3 = game.add.tilemap('map');
-        map.addTilesetImage('Brick', 'brick');
-        map2.addTilesetImage('Sky', 'foggySky');
-    //    map3.addTilesetImage('Brick', 'brick');
+        map.addTilesetImage('Grass', 'grass');
         
        /* map.setCollisionBetween(0, 8);
         map.setCollisionBetween(20, 25);
@@ -59,28 +49,18 @@ window.onload = function()
         map.setCollision(0); */
         
         //sets up the layers of the filemap
-        background = map2.createLayer('Background');
+        background = map.createLayer('Tile Layer 1');
         background.resizeWorld();
-        platforms = map.createLayer('Platforms');
-        //This debug code makes the colliders green
-    //    platforms.debug = true;
-        platforms.resizeWorld();
-    //    collision = map3.createLayer('Collision');
-    //    collision.resizeWorld(); */
-        
-        //sets the platforms layer too all be colliders
-        map.setCollisionBetween(1, 1000, true, 'Platforms');
+        //sets the platforms layer to all be colliders
+    //    map.setCollisionBetween(1, 1000, true, 'Platforms');
         
         reunited = game.add.audio('reunited');
         reunited.loop = true;
         reunited.play();
         
-    //    game.add.sprite(0,0, 'foggySky');
-    //    game.stage.backgroundColor = '#2d2d2d';
         
-        
-        girl = game.add.sprite(32, game.world.height - 150, 'girlChar');
-        game.physics.arcade.enable(girl);
+        blkCat = game.add.sprite(32, game.world.height - 150, 'blkCat');
+        game.physics.arcade.enable(blkCat);
         girl.body.bounce.y = 0.2;
         girl.body.gravity.y = 400;
         girl.body.collideWorldBounds = true;
