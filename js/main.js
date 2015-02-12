@@ -10,8 +10,11 @@ window.onload = function()
     
     "use strict";
     
-    var game = new Phaser.Game(800, 576, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
 
+    var people;
+    var blkCat;
+    var arrow;
     var reunited;
     var map;
     var background;
@@ -23,9 +26,10 @@ window.onload = function()
         game.load.spritesheet('blkCat', 'assets/blkCatJump.png', 32, 32, 15 );
         game.load.image('arrow', 'assets/arrow.png');
         game.load.image('grass', 'assets/grass.png');
+        game.load.image('BG', 'assets/grassyBG.png');
         game.load.tilemap('map', 'assets/vDayBG.json', null, Phaser.Tilemap.TILED_JSON);
         
-        game.load.audio('reunited', 'assets/Reunited.mp3');
+        game.load.audio('reunited', 'assets/Reunited1.mp3');
     }
     
     
@@ -33,14 +37,7 @@ window.onload = function()
     {
         game.world.setBounds(0, 0, 800, 576);
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        
-        //setting up the images used in the tilemap
-        map = game.add.tilemap('map');
-        map.addTilesetImage('Grass', 'grass');
-        
-        //sets up the layers of the filemap
-        background = map.createLayer('Tile Layer 1');
-        background.resizeWorld();
+        game.add.sprite(0,0, 'BG');
         
         //playing music
         reunited = game.add.audio('reunited');
