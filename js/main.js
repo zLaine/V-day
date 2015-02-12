@@ -49,7 +49,7 @@ window.onload = function()
         people.enableBody = true;
         people.physicsBodyType = Phaser.Physics.ARCADE;
     //    people.body.allowRotation = false;
-        people.body.collideWorldBounds = true;
+    //    people.body.collideWorldBounds = true;
         // allows mouse clicks
         people.inputEnabled = true;
         people.events.onInputDown.add(arrowRelease, this);
