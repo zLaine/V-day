@@ -12,6 +12,9 @@ window.onload = function()
     
     var game = new Phaser.Game(800, 576, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
 
+    var people;
+    var blkCat;
+    var arrow;
     var reunited;
     var map;
     var background;
