@@ -16,10 +16,17 @@ window.onload = function()
     var x;
     var y;
     var arrShoot;
+    var counter = 0;
+    var humans = 0;
+    var cats = 0;
+    var couples = 0;
+    var kittens = 0;
+    var catPeople = 0;
     
     function preload() 
     {
-        game.load.spritesheet('blkCat', 'assets/blkCatJump.png', 32, 32, 15 );
+        game.load.spritesheet('blkCat', 'assets/blkCatJump.png', 32, 32, 15);
+        game.load.spritesheet('characters', 'assets/characters.png', 37, 40, 15)
         game.load.image('arrow', 'assets/arrowRight.png');
         game.load.image('grass', 'assets/grass.png');
         game.load.image('BG', 'assets/grassyBG.png');
@@ -51,7 +58,7 @@ window.onload = function()
         
         for (var i = 0; i < 20; i++)
         {
-            var c = people.create(game.rnd.integerInRange(100, 770), game.rnd.integerInRange(0, 570), 'blkCat', game.rnd.integerInRange(0, 15));
+            var c = people.create(game.rnd.integerInRange(100, 770), game.rnd.integerInRange(0, 570), 'characters', game.rnd.integerInRange(0, 14));
             c.name = 'char' + i;
             c.body.immovable = true;
             c.inputEnabled = true;
@@ -60,11 +67,11 @@ window.onload = function()
             c.events.onInputDown.add(arrowRelease, this);
         }
         
-        blkCat = game.add.sprite(32, game.world.height - 150, 'blkCat');
+        /*blkCat = game.add.sprite(32, game.world.height - 150, 'blkCat');
         game.physics.arcade.enable(blkCat);
         blkCat.body.bounce.y = 0.2;
         blkCat.body.collideWorldBounds = true;
-        //girl.scale.set(2);
+        //girl.scale.set(2);*/
         
     /*    arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
         game.physics.arcade.enable(arrow);
@@ -123,6 +130,35 @@ window.onload = function()
      
      function collisionHandler (arrow, people) 
     {
+        if(people.frame == 12 || people.frame == 13 || people.frame == 14)
+        {
+            cats++;
+            counter++;
+        }
+        else
+        {
+            humans++;
+            counter++;
+        }
+        if(counter%2 == 0)
+        {
+            if(cats == 2)
+            {
+                kittens++;
+                cats = 0;
+            }
+            else if(humans == 2)
+            {
+                couples++;
+                humans = 0;
+            }
+            else if(cats == 1 && humans ==1)
+            {
+                catPeople++;
+                cats = 0;
+                humans = 0;
+            }
+        }
         people.kill();
         arrow.kill();
     }
