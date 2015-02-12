@@ -80,8 +80,8 @@ window.onload = function()
         arrow.body.allowRotation = false; */
         
         
-        blkCat.animations.add('left', [0, 1, 2], 10, true);
-        blkCat.animations.add('right', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], 10, true); 
+    //    blkCat.animations.add('left', [0, 1, 2], 10, true);
+    //    blkCat.animations.add('right', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], 10, true); 
         
        //blkCat.animations.play('right', 10, true);
 
