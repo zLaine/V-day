@@ -14,6 +14,7 @@ window.onload = function()
 
     var reunited;
     var map;
+    var background;
     var x;
     var y;
     
@@ -21,6 +22,7 @@ window.onload = function()
     {
         game.load.spritesheet('blkCat', 'assets/blkCatJump.png', 32, 32, 15 );
         game.load.image('arrow', 'assets/arrow.png');
+        game.load.image('grass', 'assets/grass.png');
         game.load.tilemap('map', 'assets/vDayBG.json', null, Phaser.Tilemap.TILED_JSON);
         
         game.load.audio('reunited', 'assets/Reunited1.mp3');
