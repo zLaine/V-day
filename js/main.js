@@ -30,7 +30,7 @@ window.onload = function()
     
     function create() 
     {
-        game.world.setBounds(0, 0, 800, 576);
+        game.world.setBounds(0, 0, 800, 600);
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.add.sprite(0,0, 'BG');
         
@@ -46,6 +46,7 @@ window.onload = function()
     //    people.body.allowRotation = false;
     //    people.body.collideWorldBounds = true;
         // allows mouse clicks
+        events.onInputDown.add(arrowRelease, this);
         
         for (var i = 0; i < 20; i++)
         {
