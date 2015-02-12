@@ -48,7 +48,7 @@ window.onload = function()
         game.physics.arcade.enable(people);
         people.enableBody = true;
         people.physicsBodyType = Phaser.Physics.ARCADE;
-        people.body.allowRotation = false;
+    //    people.body.allowRotation = false;
         people.body.collideWorldBounds = true;
         // allows mouse clicks
         people.inputEnabled = true;
