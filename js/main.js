@@ -54,6 +54,7 @@ window.onload = function()
             c.name = 'char' + i;
             c.body.immovable = true;
             c.events.onInputDown.add(arrowRelease, this);
+            c.scale(2);
         }
         
         blkCat = game.add.sprite(32, game.world.height - 150, 'blkCat');
