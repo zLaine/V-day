@@ -26,7 +26,7 @@ window.onload = function()
     function preload() 
     {
         game.load.spritesheet('blkCat', 'assets/blkCatJump.png', 32, 32, 15);
-        game.load.spritesheet('characters', 'assets/characters1.png', 40, 40, 15)
+        game.load.spritesheet('characters', 'assets/characters1.png', 40, 40, 15);
         game.load.image('arrow', 'assets/arrowRight.png');
         game.load.image('grass', 'assets/grass.png');
         game.load.image('BG', 'assets/grassyBG.png');
