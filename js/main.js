@@ -3,11 +3,6 @@ window.onload = function()
     // You might want to start with a template that uses GameStates:
     //     https://github.com/photonstorm/phaser/tree/master/resources/Project%20Templates/Basic
     
-    // You can copy-and-paste the code from any of the examples at http://examples.phaser.io here.
-    // You will need to change the fourth parameter to "new Phaser.Game()" from
-    // 'phaser-example' to 'game', which is the id of the HTML element where we
-    // want the game to go.
-    
     "use strict";
     
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
@@ -24,7 +19,7 @@ window.onload = function()
     function preload() 
     {
         game.load.spritesheet('blkCat', 'assets/blkCatJump.png', 32, 32, 15 );
-        game.load.image('arrow', 'assets/arrow.png');
+        game.load.image('arrow', 'assets/arrow1.png');
         game.load.image('grass', 'assets/grass.png');
         game.load.image('BG', 'assets/grassyBG.png');
         game.load.tilemap('map', 'assets/vDayBG.json', null, Phaser.Tilemap.TILED_JSON);
