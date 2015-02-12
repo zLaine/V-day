@@ -108,7 +108,7 @@ window.onload = function()
         arrow.enableBody = true;
         arrow.physicsBodyType = Phaser.Physics.ARCADE;
         //arrow.body.allowRotation = false; 
-        arrow.scale.set(.25);
+        arrow.scale.set(.45);
         
         x = game.input.mousePointer.x;
         y = game.input.mousePointer.y;
