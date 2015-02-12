@@ -107,12 +107,12 @@ window.onload = function()
         game.physics.arcade.enable(arrow);
         arrow.enableBody = true;
         arrow.physicsBodyType = Phaser.Physics.ARCADE;
-        //arrow.body.allowRotation = false; 
-        arrow.scale.set(.45);
+        arrow.body.allowRotation = false; 
+        arrow.scale.set(.9);
         
         x = game.input.mousePointer.x;
         y = game.input.mousePointer.y;
-        arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 120);
+        //arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 120);
         arrow.rotation = game.physics.arcade.angleBetween(arrow, target);
      }
      
