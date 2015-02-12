@@ -155,7 +155,7 @@ window.onload = function()
             }
         }
         people.kill();
-        arrow.kill();
+        arrow.destroy();
     }
      
 };
