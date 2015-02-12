@@ -15,6 +15,7 @@ window.onload = function()
     var background;
     var x;
     var y;
+    var arrShoot;
     
     function preload() 
     {
@@ -114,6 +115,10 @@ window.onload = function()
         y = game.input.mousePointer.y;
         arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 120);
         arrow.rotation = game.physics.arcade.angleBetween(arrow, target);
+        
+        arrShoot = game.add.tween(arrow.scale);
+        arrShoot.to({x: .25, y: .25}, 1000);
+        arrShoot.start();
      }
      
      function collisionHandler (arrow, people) 
