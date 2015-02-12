@@ -14,6 +14,8 @@ window.onload = function()
 
     var reunited;
     var map;
+    var x;
+    var y;
     
     function preload() 
     {
@@ -49,6 +51,9 @@ window.onload = function()
         people.physicsBodyType = Phaser.Physics.ARCADE;
         people.body.allowRotation = false;
         people.body.collideWorldBounds = true;
+        // allows mouse clicks
+        people.inputEnabled = true;
+        people.events.onInputDown.add(arrowRelease, this);
         
         for (var i = 0; i < 20; i++)
         {
@@ -84,14 +89,14 @@ window.onload = function()
     {
         game.physics.arcade.collide(arrow, people, collisionHandler, null, this);
         game.physics.arcade.collide(people, people);
-         
-        if (mouse pressed)
-        {
-            var x = game.input.mousePointer.x;
-            var y = game.input.mousePointer.y;
-            arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 60);
-        }
         
+     }
+     
+     function arrowRelease()
+     {
+        x = game.input.mousePointer.x;
+        y = game.input.mousePointer.y;
+        arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 60);
      }
      
      function collisionHandler (arrow, people) 
