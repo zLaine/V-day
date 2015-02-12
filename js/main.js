@@ -97,7 +97,7 @@ window.onload = function()
         
         x = game.input.mousePointer.x;
         y = game.input.mousePointer.y;
-        arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 60);
+        arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 120);
      }
      
      function collisionHandler (arrow, people) 
