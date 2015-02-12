@@ -32,7 +32,7 @@ window.onload = function()
     {
         game.world.setBounds(0, 0, 800, 600);
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.add.sprite(0,0, 'BG');
+        background = game.add.sprite(0,0, 'BG');
         
         //playing music
         reunited = game.add.audio('reunited');
@@ -46,7 +46,7 @@ window.onload = function()
     //    people.body.allowRotation = false;
     //    people.body.collideWorldBounds = true;
         // allows mouse clicks
-        events.onInputDown.add(arrowRelease, this);
+        background.events.onInputDown.add(arrowRelease, this);
         
         for (var i = 0; i < 20; i++)
         {
@@ -54,7 +54,6 @@ window.onload = function()
             c.name = 'char' + i;
             c.body.immovable = true;
             c.inputEnabled = true;
-            c.events.onInputDown.add(arrowRelease, this);
             c.scale.set(2);
         }
         
@@ -88,13 +87,24 @@ window.onload = function()
         
      }
      
+     function arrowCreate()
+     {
+        arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
+        game.physics.arcade.enable(arrow);
+        arrow.enableBody = true;
+        arrow.physicsBodyType = Phaser.Physics.ARCADE;
+        //arrow.body.allowRotation = false; 
+        
+        arrow.events.onInputDown.add(arrowRelease, this);
+     }
+     
      function arrowRelease()
      {
         arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
         game.physics.arcade.enable(arrow);
         arrow.enableBody = true;
         arrow.physicsBodyType = Phaser.Physics.ARCADE;
-        arrow.body.allowRotation = false; 
+        //arrow.body.allowRotation = false; 
         
         x = game.input.mousePointer.x;
         y = game.input.mousePointer.y;
