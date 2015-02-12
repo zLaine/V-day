@@ -52,13 +52,13 @@ window.onload = function()
     //    people.body.collideWorldBounds = true;
         // allows mouse clicks
         people.inputEnabled = true;
-        people.events.onInputDown.add(arrowRelease, this);
         
         for (var i = 0; i < 20; i++)
         {
             var c = group.create(game.rnd.integerInRange(100, 770), game.rnd.integerInRange(0, 570), 'blkCat', game.rnd.integerInRange(0, 15));
             c.name = 'char' + i;
             c.body.immovable = true;
+            c.events.onInputDown.add(arrowRelease, this);
         }
         
         blkCat = game.add.sprite(32, game.world.height - 150, 'blkCat');
