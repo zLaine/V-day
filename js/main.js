@@ -19,7 +19,7 @@ window.onload = function()
     function preload() 
     {
         game.load.spritesheet('blkCat', 'assets/blkCatJump.png', 32, 32, 15 );
-        game.load.image('arrow', 'assets/arrow1.png');
+        game.load.image('arrow', 'assets/arrowUp.png');
         game.load.image('grass', 'assets/grass.png');
         game.load.image('BG', 'assets/grassyBG.png');
         game.load.tilemap('map', 'assets/vDayBG.json', null, Phaser.Tilemap.TILED_JSON);
@@ -107,12 +107,12 @@ window.onload = function()
         game.physics.arcade.enable(arrow);
         arrow.enableBody = true;
         arrow.physicsBodyType = Phaser.Physics.ARCADE;
-        //arrow.body.allowRotation = false; 
-        arrow.scale.set(.45);
+        arrow.body.allowRotation = false; 
+        arrow.scale.set(.9);
         
         x = game.input.mousePointer.x;
         y = game.input.mousePointer.y;
-        arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 120);
+        //arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 120);
         arrow.rotation = game.physics.arcade.angleBetween(arrow, target);
      }
      
