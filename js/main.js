@@ -11,26 +11,21 @@ window.onload = function()
     "use strict";
     
     var game = new Phaser.Game(800, 576, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
-    
-    var girl;
-    var brick;
-    var walkSpeed = 150;
+
     var reunited;
     var map;
-    var map2;
-    var tiles;
     var background;
-    var platforms;
-    var collision;
+    var x;
+    var y;
     
     function preload() 
     {
         game.load.spritesheet('blkCat', 'assets/blkCatJump.png', 32, 32, 15 );
+        game.load.image('arrow', 'assets/arrow.png');
         game.load.image('grass', 'assets/grass.png');
-        game.load.image('foggySky', 'assets/foggyBackground.png');
         game.load.tilemap('map', 'assets/vDayBG.json', null, Phaser.Tilemap.TILED_JSON);
         
-        game.load.audio('reunited', 'assets/Reunited1.mp3');
+        game.load.audio('reunited', 'assets/Reunited.mp3');
     }
     
     
@@ -43,123 +38,75 @@ window.onload = function()
         map = game.add.tilemap('map');
         map.addTilesetImage('Grass', 'grass');
         
-       /* map.setCollisionBetween(0, 8);
-        map.setCollisionBetween(20, 25);
-        map.setCollisionBetween(27, 29);
-        map.setCollision(0); */
-        
         //sets up the layers of the filemap
         background = map.createLayer('Tile Layer 1');
         background.resizeWorld();
-        //sets the platforms layer to all be colliders
-    //    map.setCollisionBetween(1, 1000, true, 'Platforms');
         
+        //playing music
         reunited = game.add.audio('reunited');
         reunited.loop = true;
         reunited.play();
         
+        people = game.add.group();
+        game.physics.arcade.enable(people);
+        people.enableBody = true;
+        people.physicsBodyType = Phaser.Physics.ARCADE;
+        people.body.allowRotation = false;
+        people.body.collideWorldBounds = true;
+        // allows mouse clicks
+        people.inputEnabled = true;
+        people.events.onInputDown.add(arrowRelease, this);
+        
+        for (var i = 0; i < 20; i++)
+        {
+            var c = group.create(game.rnd.integerInRange(100, 770), game.rnd.integerInRange(0, 570), 'blkCat', game.rnd.integerInRange(0, 15));
+            c.name = 'char' + i;
+            c.body.immovable = true;
+        }
         
         blkCat = game.add.sprite(32, game.world.height - 150, 'blkCat');
         game.physics.arcade.enable(blkCat);
-        girl.body.bounce.y = 0.2;
-        girl.body.gravity.y = 400;
-        girl.body.collideWorldBounds = true;
+        blkCat.body.bounce.y = 0.2;
+        blkCat.body.collideWorldBounds = true;
         //girl.scale.set(2);
         
-        girl.animations.add('left', [0, 1, 2], 10, true);
-        girl.animations.add('down', [3, 4, 5], 10, true);
-        girl.animations.add('up', [6, 7, 8], 10, true);
-        girl.animations.add('right', [9, 10, 11], 10, true); 
+        arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
+        game.physics.arcade.enable(arrow);
+        arrow.enableBody = true;
+        arrow.physicsBodyType = Phaser.Physics.ARCADE;
+        arrow.body.allowRotation = false;
         
-       // walkRight.onStart.add(animationStarted, this);
-       // walkRight.onLoop.add(animationLooped, this);
-       //girl.animations.play('right', 10, true);
+        
+        blkCat.animations.add('left', [0, 1, 2], 10, true);
+        blkCat.animations.add('right', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], 10, true); 
+        
+       //blkCat.animations.play('right', 10, true);
 
-      //  girl.body.gravity.y = 300;
-       // cursors = game.input.keyboard.createCursorKeys();
+
        game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
         
-        girl.anchor.setTo(.5, .5);
-        game.camera.follow(girl);
-        //girl.anchor.setTo(.5, .5);
-
-        //game.camera.deadzone = new Phaser.Rectangle(100, 100, 600, 400);
     }
-    
-    //find objects in a Tiled layer that containt a property called "type" equal to a certain value
-   /*
-   findObjectsByType: function(type, map, layer) {
-        var result = new Array();
-        map.objects[layer].forEach(function(element){
-        if(element.properties.type === type) {
-            //Phaser uses top left, Tiled bottom left so we have to adjust the y position
-            //also keep in mind that the cup images are a bit smaller than the tile which is 16x16
-            //so they might not be placed in the exact pixel position as in Tiled
-            element.y -= map.tileHeight;
-            result.push(element);
-        }      
-        });
-        return result;
-    } */
-
     
     function update() 
     {
-        game.physics.arcade.collide(girl, platforms);
+        game.physics.arcade.collide(arrow, people, collisionHandler, null, this);
+        game.physics.arcade.collide(people, people);
         
-        // girl.body.gravity.y = 300; 
-        girl.body.velocity.x = 0;
-         
-         
-        if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-         {
-        //  Move to the left
-             girl.body.velocity.x = (0 - walkSpeed);
-             girl.animations.play('left');
-             
-         }
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
-        {
-            //  Move to the right
-            girl.body.velocity.x = walkSpeed;
-            girl.animations.play('right');
-        }
-        else
-        {
-            //  Stand still
-            girl.animations.stop();
-            girl.frame = 4;
-        } 
-      /*  if(jump.isDown && player.body.touching.down)
-        {
-            girl.body.velocity.y = -300;
-        } */
-        
-        
-        //  Allow the player to jump if they are touching the ground and have lifted the jump key since last jump
-        //cause spamming jump by holding the button isn't cool
-        if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && girl.body.onFloor())
-        {
-            girl.body.velocity.y = -350;
-        }
-        
-        //setting up gravity manipulation
-        if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && girl.body.onFloor())
-        {
-            if (girl.body.gravity.y = 400)
-            {
-                girl.body.gravity.y = -400;
-            }
-            else if(girl.body.gravity.y = -400)
-            {
-                girl.body.gravity.y = 400
-            }
-            game.add.tween(girl).to( { angle: 180 }, 100, Phaser.Easing.Linear.None, true);
-        } 
-             
      }
      
-    function render() 
+     function arrowRelease()
+     {
+        x = game.input.mousePointer.x;
+        y = game.input.mousePointer.y;
+        arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 60);
+     }
+     
+     function collisionHandler (arrow, people) 
+    {
+        people.kill();
+    }
+     
+    /*function render() 
     {
         var zone = game.camera.deadzone;
     
@@ -168,5 +115,5 @@ window.onload = function()
     
         game.debug.cameraInfo(game.camera, 32, 32);
         game.debug.spriteCoords(girl, 32, 500);
-    } 
+    } */
 };
