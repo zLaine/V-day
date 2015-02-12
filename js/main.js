@@ -56,9 +56,9 @@ window.onload = function()
         // allows mouse clicks
     //    background.events.onInputDown.add(arrowRelease, this);
         
-        for (var i = 0; i < 20; i++)
+        for (var i = 0; i < 15; i++)
         {
-            var c = people.create(game.rnd.integerInRange(100, 770), game.rnd.integerInRange(0, 570), 'characters', game.rnd.integerInRange(0, 14));
+            var c = people.create(game.rnd.integerInRange(100, 770), game.rnd.integerInRange(0, 570), 'characters', i);
             c.name = 'char' + i;
             c.body.immovable = true;
             c.inputEnabled = true;
