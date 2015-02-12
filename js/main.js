@@ -46,13 +46,13 @@ window.onload = function()
     //    people.body.allowRotation = false;
     //    people.body.collideWorldBounds = true;
         // allows mouse clicks
-        people.inputEnabled = true;
         
         for (var i = 0; i < 20; i++)
         {
             var c = people.create(game.rnd.integerInRange(100, 770), game.rnd.integerInRange(0, 570), 'blkCat', game.rnd.integerInRange(0, 15));
             c.name = 'char' + i;
             c.body.immovable = true;
+            c.inputEnabled = true;
             c.events.onInputDown.add(arrowRelease, this);
             c.scale.set(2);
         }
@@ -63,11 +63,11 @@ window.onload = function()
         blkCat.body.collideWorldBounds = true;
         //girl.scale.set(2);
         
-        arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
+    /*    arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
         game.physics.arcade.enable(arrow);
         arrow.enableBody = true;
         arrow.physicsBodyType = Phaser.Physics.ARCADE;
-        arrow.body.allowRotation = false;
+        arrow.body.allowRotation = false; */
         
         
         blkCat.animations.add('left', [0, 1, 2], 10, true);
@@ -89,6 +89,12 @@ window.onload = function()
      
      function arrowRelease()
      {
+        arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
+        game.physics.arcade.enable(arrow);
+        arrow.enableBody = true;
+        arrow.physicsBodyType = Phaser.Physics.ARCADE;
+        arrow.body.allowRotation = false; 
+        
         x = game.input.mousePointer.x;
         y = game.input.mousePointer.y;
         arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 60);
@@ -97,6 +103,7 @@ window.onload = function()
      function collisionHandler (arrow, people) 
     {
         people.kill();
+        arrow.kill();
     }
      
     /*function render() 
