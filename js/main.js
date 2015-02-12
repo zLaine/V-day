@@ -93,7 +93,8 @@ window.onload = function()
         game.physics.arcade.enable(arrow);
         arrow.enableBody = true;
         arrow.physicsBodyType = Phaser.Physics.ARCADE;
-        //arrow.body.allowRotation = false; 
+        arrow.body.allowRotation = false; 
+        arrow.scale.set(.25);
         
         arrow.events.onInputDown.add(arrowRelease, this);
      }
