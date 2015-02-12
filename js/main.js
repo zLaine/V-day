@@ -46,7 +46,7 @@ window.onload = function()
     //    people.body.allowRotation = false;
     //    people.body.collideWorldBounds = true;
         // allows mouse clicks
-        background.events.onInputDown.add(arrowRelease, this);
+    //    background.events.onInputDown.add(arrowRelease, this);
         
         for (var i = 0; i < 20; i++)
         {
@@ -55,6 +55,8 @@ window.onload = function()
             c.body.immovable = true;
             c.inputEnabled = true;
             c.scale.set(2);
+            
+            c.events.onInputDown.add(arrowRelease, this);
         }
         
         blkCat = game.add.sprite(32, game.world.height - 150, 'blkCat');
