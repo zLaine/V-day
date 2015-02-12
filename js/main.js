@@ -22,6 +22,8 @@ window.onload = function()
     var couples = 0;
     var kittens = 0;
     var catPeople = 0;
+    var style;
+    var text;
     
     function preload() 
     {
@@ -48,8 +50,7 @@ window.onload = function()
         reunited.play();
         
         //Text
-        var style = { font: "20px Arial", fill: "#000000", align: "left" };
-        var text = game.add.text(0, 0, "Score: \nBoxes of Kittens: " + kittens+ "\nCouples: " + couples + "\nLonely cat people: " + catPeople, style);
+        style = { font: "20px Arial", fill: "#ffffff", align: "left" };
         
         people = game.add.group();
         game.physics.arcade.enable(people);
@@ -98,6 +99,8 @@ window.onload = function()
     {
         game.physics.arcade.collide(arrow, people, collisionHandler, null, this);
         game.physics.arcade.collide(people, people);
+        
+        text = game.add.text(0, 0, "Score: \nBoxes of Kittens: " + kittens+ "\nCouples: " + couples + "\nLonely cat people: " + catPeople, style);
         
      }
      
