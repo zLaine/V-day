@@ -47,6 +47,10 @@ window.onload = function()
         reunited.loop = true;
         reunited.play();
         
+        //Text
+        var style = { font: "20px Arial", fill: "#000000", align: "left" };
+        var text = game.add.text(0, 0, "Score: \nBoxes of Kittens: " + kittens+ "\nCouples: " + couples + "\nLonely cat people: " + catPeople, style);
+        
         people = game.add.group();
         game.physics.arcade.enable(people);
         people.enableBody = true;
@@ -95,18 +99,6 @@ window.onload = function()
         game.physics.arcade.collide(arrow, people, collisionHandler, null, this);
         game.physics.arcade.collide(people, people);
         
-     }
-     
-     function arrowCreate()
-     {
-        arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
-        game.physics.arcade.enable(arrow);
-        arrow.enableBody = true;
-        arrow.physicsBodyType = Phaser.Physics.ARCADE;
-        arrow.body.allowRotation = false; 
-        arrow.scale.set(.25);
-        
-        arrow.events.onInputDown.add(arrowRelease, this);
      }
      
      function arrowRelease(target)
