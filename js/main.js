@@ -3,11 +3,6 @@ window.onload = function()
     // You might want to start with a template that uses GameStates:
     //     https://github.com/photonstorm/phaser/tree/master/resources/Project%20Templates/Basic
     
-    // You can copy-and-paste the code from any of the examples at http://examples.phaser.io here.
-    // You will need to change the fourth parameter to "new Phaser.Game()" from
-    // 'phaser-example' to 'game', which is the id of the HTML element where we
-    // want the game to go.
-    
     "use strict";
     
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
@@ -24,7 +19,7 @@ window.onload = function()
     function preload() 
     {
         game.load.spritesheet('blkCat', 'assets/blkCatJump.png', 32, 32, 15 );
-        game.load.image('arrow', 'assets/arrow.png');
+        game.load.image('arrow', 'assets/arrow1.png');
         game.load.image('grass', 'assets/grass.png');
         game.load.image('BG', 'assets/grassyBG.png');
         game.load.tilemap('map', 'assets/vDayBG.json', null, Phaser.Tilemap.TILED_JSON);
@@ -35,9 +30,9 @@ window.onload = function()
     
     function create() 
     {
-        game.world.setBounds(0, 0, 800, 576);
+        game.world.setBounds(0, 0, 800, 600);
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.add.sprite(0,0, 'BG');
+        background = game.add.sprite(0,0, 'BG');
         
         //playing music
         reunited = game.add.audio('reunited');
@@ -51,13 +46,16 @@ window.onload = function()
     //    people.body.allowRotation = false;
     //    people.body.collideWorldBounds = true;
         // allows mouse clicks
-        people.inputEnabled = true;
+    //    background.events.onInputDown.add(arrowRelease, this);
         
         for (var i = 0; i < 20; i++)
         {
             var c = people.create(game.rnd.integerInRange(100, 770), game.rnd.integerInRange(0, 570), 'blkCat', game.rnd.integerInRange(0, 15));
             c.name = 'char' + i;
             c.body.immovable = true;
+            c.inputEnabled = true;
+            c.scale.set(2);
+            
             c.events.onInputDown.add(arrowRelease, this);
         }
         
@@ -67,11 +65,11 @@ window.onload = function()
         blkCat.body.collideWorldBounds = true;
         //girl.scale.set(2);
         
-        arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
+    /*    arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
         game.physics.arcade.enable(arrow);
         arrow.enableBody = true;
         arrow.physicsBodyType = Phaser.Physics.ARCADE;
-        arrow.body.allowRotation = false;
+        arrow.body.allowRotation = false; */
         
         
         blkCat.animations.add('left', [0, 1, 2], 10, true);
@@ -91,26 +89,37 @@ window.onload = function()
         
      }
      
-     function arrowRelease()
+     function arrowCreate()
      {
+        arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
+        game.physics.arcade.enable(arrow);
+        arrow.enableBody = true;
+        arrow.physicsBodyType = Phaser.Physics.ARCADE;
+        arrow.body.allowRotation = false; 
+        arrow.scale.set(.25);
+        
+        arrow.events.onInputDown.add(arrowRelease, this);
+     }
+     
+     function arrowRelease(target)
+     {
+        arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
+        game.physics.arcade.enable(arrow);
+        arrow.enableBody = true;
+        arrow.physicsBodyType = Phaser.Physics.ARCADE;
+        //arrow.body.allowRotation = false; 
+        arrow.scale.set(.45);
+        
         x = game.input.mousePointer.x;
         y = game.input.mousePointer.y;
-        arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 60);
+        arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 120);
+        arrow.rotation = game.physics.arcade.angleBetween(arrow, target);
      }
      
      function collisionHandler (arrow, people) 
     {
         people.kill();
+        arrow.kill();
     }
      
-    /*function render() 
-    {
-        var zone = game.camera.deadzone;
-    
-        game.context.fillStyle = 'rgba(255,0,0,0.6)';
-        game.context.fillRect(zone.x, zone.y, zone.width, zone.height);
-    
-        game.debug.cameraInfo(game.camera, 32, 32);
-        game.debug.spriteCoords(girl, 32, 500);
-    } */
 };
