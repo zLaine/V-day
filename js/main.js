@@ -101,7 +101,7 @@ window.onload = function()
         arrow.events.onInputDown.add(arrowRelease, this);
      }
      
-     function arrowRelease()
+     function arrowRelease(target)
      {
         arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
         game.physics.arcade.enable(arrow);
@@ -113,6 +113,7 @@ window.onload = function()
         x = game.input.mousePointer.x;
         y = game.input.mousePointer.y;
         arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 120);
+        arrow.rotation = game.physics.arcade.angleBetween(arrow, target);
      }
      
      function collisionHandler (arrow, people) 
